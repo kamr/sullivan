@@ -1,32 +1,3 @@
-# BabylonJS + Colyseus: Multiplayer Boilerplate <a href="https://patreon.com/endel" title="Donate to this project using Patreon"><img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fendel&style=for-the-badge" alt="Patreon donate button"/></a>
-
-This is a project setup to use BabylonJS 4.x with Colyseus 0.13.x.
-
-<img src="screenshot.png?raw=true" />
-
-## Tooling
-
-- [Webpack 4.x](https://github.com/webpack/webpack)
-- [TypeScript 3.x](https://github.com/Microsoft/TypeScript)
-- [BabylonJS 4.x](https://github.com/BabylonJS/Babylon.js)
-- [Colyseus 0.13.x](https://github.com/colyseus/colyseus)
-- [Node.js 12.x+](https://nodejs.org/)
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-| [Live demo](https://babylonjs-multiplayer.herokuapp.com/)
-
-**Requires [NodeJS v12.0.0+](https://nodejs.org/en/download/)**
-
-## How to use
-
-Check out this repository.
-
-```
-git clone https://github.com/endel/babylonjs-multiplayer-boilerplate.git
-```
-
-Inside this repository, there's two separate applications. The client (babylonjs + colyseus client) and the server (nodejs + colyseus server).
-
 ### Client application
 
 To be able to build the client application, you'll need to enter in the folder,
@@ -62,11 +33,6 @@ npm start
 ```
 
 It will spawn a web socket server, listening on [ws://localhost:2657](ws://localhost:2657).
-
-## Documentation
-
-- [BabylonJS documentation](https://doc.babylonjs.com/)
-- [Colyseus documentation](https://docs.colyseus.io/)
 
 ## License
 
