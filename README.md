@@ -1,50 +1,73 @@
-<div align="center">
-  <a href="https://github.com/colyseus/colyseus">
-    <img src="https://github.com/colyseus/colyseus/blob/master/media/header.png?raw=true" />
-  </a>
-  <br>
-  <br>
-  <a href="https://npmjs.com/package/colyseus">
-    <img src="https://img.shields.io/npm/dm/colyseus.svg?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfjAgETESWYxR33AAAAtElEQVQoz4WQMQrCQBRE38Z0QoTcwF4Qg1h4BO0sxGOk80iCtViksrIQRRBTewWxMI1mbELYjYu+4rPMDPtn12ChMT3gavb4US5Jym0tcBIta3oDHv4Gwmr7nC4QAxBrCdzM2q6XqUnm9m9r59h7Rc0n2pFv24k4ttGMUXW+sGELTJjSr7QDKuqLS6UKFChVWWuFkZw9Z2AAvAirKT+JTlppIRnd6XgaP4goefI2Shj++OnjB3tBmHYK8z9zAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTAyLTAxVDE4OjE3OjM3KzAxOjAwGQQixQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wMi0wMVQxODoxNzozNyswMTowMGhZmnkAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC">
-  </a>
-  <a href="https://patreon.com/endel" title="Donate to this project using Patreon">
-    <img src="https://img.shields.io/badge/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fendel&style=for-the-badge" alt="Patreon donate button"/>
-  </a>
-  <a href="https://discuss.colyseus.io" title="Discuss on Forum">
-    <img src="https://img.shields.io/badge/discuss-on%20forum-brightgreen.svg?style=for-the-badge&colorB=0069b8&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfjAgETDROxCNUzAAABB0lEQVQoz4WRvyvEARjGP193CnWRH+dHQmGwKZtFGcSmxHAL400GN95ktIpV2dzlLzDJgsGgGNRdDAzoQueS/PgY3HXHyT3T+/Y87/s89UANBKXBdoZo5J6L4K1K5ZxHfnjnlQUf3bKvkgy57a0r9hS3cXfMO1kWJMza++tj3Ac7/LY343x1NA9cNmYMwnSS/SP8JVFuSJmr44iFqvtmpjhmhBCrOOazCesq6H4P3bPBjFoIBydOk2bUA17I080Es+wSZ51B4DIA2zgjSpYcEe44Js01G0XjRcCU+y4ZMrDeLmfc9EnVd5M/o0VMeu6nJZxWJivLmhyw1WHTvrr2b4+2OFqra+ALwouTMDcqmjMAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTktMDItMDFUMTg6MTM6MTkrMDE6MDAC9f6fAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE5LTAyLTAxVDE4OjEzOjE5KzAxOjAwc6hGIwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAAASUVORK5CYII=" alt="Discussion forum" />
-  </a>
-  <a href="https://discord.gg/RY8rRS7">
-    <img src="https://img.shields.io/discord/525739117951320081.svg?style=for-the-badge&colorB=7581dc&logo=discord&logoColor=white">
-  </a>
-  <h3>
-    Official Colyseus Examples. <br /><a href="https://docs.colyseus.io">View documentation</a>
-  </h3>
-</div>
+# BabylonJS + Colyseus: Multiplayer Boilerplate <a href="https://patreon.com/endel" title="Donate to this project using Patreon"><img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fendel&style=for-the-badge" alt="Patreon donate button"/></a>
 
-On this repository you can find basic usage examples of how to use Colyseus along with the JavaScript client.
+This is a project setup to use BabylonJS 4.x with Colyseus 0.13.x.
 
-**Live demo**
+<img src="screenshot.png?raw=true" />
 
-- [See live](http://colyseus-examples.herokuapp.com/)
-- [See monitor panel](http://colyseus-examples.herokuapp.com/colyseus)
+## Tooling
 
-## How to run
+- [Webpack 4.x](https://github.com/webpack/webpack)
+- [TypeScript 3.x](https://github.com/Microsoft/TypeScript)
+- [BabylonJS 4.x](https://github.com/BabylonJS/Babylon.js)
+- [Colyseus 0.13.x](https://github.com/colyseus/colyseus)
+- [Node.js 12.x+](https://nodejs.org/)
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+| [Live demo](https://babylonjs-multiplayer.herokuapp.com/)
+
+**Requires [NodeJS v12.0.0+](https://nodejs.org/en/download/)**
+
+## How to use
+
+Check out this repository.
 
 ```
-git clone https://github.com/colyseus/colyseus-examples.git
-cd colyseus-examples
+git clone https://github.com/endel/babylonjs-multiplayer-boilerplate.git
+```
+
+Inside this repository, there's two separate applications. The client (babylonjs + colyseus client) and the server (nodejs + colyseus server).
+
+### Client application
+
+To be able to build the client application, you'll need to enter in the folder,
+and install its dependencies first.
+
+```
+cd babylonjs-multiplayer-boilerplate/client
 npm install
+```
+
+Now you can build and run it by running:
+
+```
 npm start
 ```
 
-Open [http://localhost:2567](http://localhost:2567) in your browser.
+It will spawn the `webpack-dev-server`, listening on [http://localhost:8080](http://localhost:8080).
 
-## Deployment for prototyping
 
-You can easily deploy Colyseus Examples on Heroku.
+### Server application
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/colyseus/colyseus-examples)
+For the server, the steps are exactly the same. Install the dependencies:
+
+```
+cd babylonjs-multiplayer-boilerplate/server
+npm install
+```
+
+Now you can build and run it by running:
+
+```
+npm start
+```
+
+It will spawn a web socket server, listening on [ws://localhost:2657](ws://localhost:2657).
+
+## Documentation
+
+- [BabylonJS documentation](https://doc.babylonjs.com/)
+- [Colyseus documentation](https://docs.colyseus.io/)
 
 ## License
 
-MIT
+Apache License 2.0

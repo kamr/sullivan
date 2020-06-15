@@ -1,5 +1,8 @@
 import { Room } from "colyseus";
 
+
+var paper = require('paper');
+
 export class ChatRoom extends Room {
     // this room supports only 4 clients connected
     maxClients = 4;

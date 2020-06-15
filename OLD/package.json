@@ -1,0 +1,40 @@
+{
+  "name": "come-play",
+  "version": "1.0.0",
+  "description": "Come Play V0 by Kamran",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon",
+    "start": "ts-node src/server/index.ts",
+    "heroku-postbuild": "npm run build",
+    "build": "webpack --config webpack.config.js"
+  },
+  "engines": {
+    "node": "8.9.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@colyseus/monitor": "^0.12.1",
+    "colyseus": "^0.13.0",
+    "cors": "^2.8.5",
+    "express": "^4.14.0",
+    "paper": "^0.12.8",
+    "serve-index": "^1.8.0",
+    "superagent": "^3.8.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.6",
+    "html-webpack-plugin": "^4.3.0",
+    "ts-loader": "^7.0.5",
+    "ts-node": "^8.3.0",
+    "ts-node-dev": "^1.0.0-pre.47",
+    "typescript": "^3.9.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-hot-middleware": "^2.25.0"
+  }
+}

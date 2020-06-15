@@ -1,7 +1,18 @@
+/*
+ * embed webpack-dev-server
+ */
+let webpack, webpackDevMiddleware, webpackHotMiddleware, webpackConfig;
+if (process.env.NODE_ENV !== "production") {
+    webpack = require("webpack");
+    webpackDevMiddleware = require("webpack-dev-middleware");
+    webpackConfig = require("../../webpack.config.js");
+    webpackHotMiddleware = require("webpack-hot-middleware");
+}
+
 import express from 'express';
 import serveIndex from 'serve-index';
 import path from 'path';
-import cors from 'cors';
+import cors from "cors";
 import { createServer } from 'http';
 import { Server, LobbyRoom, RelayRoom } from 'colyseus';
 import { monitor } from '@colyseus/monitor';
@@ -12,6 +23,8 @@ import { ChatRoom } from "./rooms/01-chat-room";
 // import { AuthRoom } from "./rooms/03-auth";
 // import { ReconnectionRoom } from './rooms/04-reconnection';
 // import { CustomLobbyRoom } from './rooms/07-custom-lobby-room';
+
+export let STATIC_DIR: string;
 
 const port = Number(process.env.PORT || 2567) + Number(process.env.NODE_APP_INSTANCE || 0);
 const app = express();
@@ -28,6 +41,19 @@ const gameServer = new Server({
 
 // Define "lobby" room
 gameServer.define("lobby", LobbyRoom);
+
+if (process.env.NODE_ENV !== "production") {
+  const webpackCompiler = webpack(webpackConfig);
+  app.use(webpackDevMiddleware(webpackCompiler, {}));
+  app.use(webpackHotMiddleware(webpackCompiler));
+
+  // on development, use "../../" as static root
+  STATIC_DIR = path.resolve(__dirname, "..", "..");
+
+} else {
+  // on production, use ./public as static root
+  STATIC_DIR = path.resolve(__dirname, "public");
+}
 
 // Define "relay" room
 gameServer.define("relay", RelayRoom, { maxClients: 4 })
@@ -59,7 +85,9 @@ gameServer.define("chat_with_options", ChatRoom, {
 // gameServer.define("custom_lobby", CustomLobbyRoom);
 
 // app.use('/', serveIndex(path.join(__dirname, "static"), {'icons': true}))
-app.use('/', express.static(path.join(__dirname, "static")));
+// app.use('/', express.static(path.join(__dirname, "static")));
+// app.use("/", express.static(path.resolve(__dirname, "..", "..")));
+app.use("/", express.static(STATIC_DIR));
 // app.get('/', function(req, res) {
 //     res.sendFile(path.join(__dirname + '/index.html'));
 // });
@@ -79,3 +107,4 @@ gameServer.listen(port);
 // });
 
 console.log(`Listening on http://localhost:${ port }`);
+
