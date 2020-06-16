@@ -32,7 +32,7 @@
     "webpack-hot-middleware": "^2.24.3"
   },
   "dependencies": {
-    "@colyseus/monitor": "^0.11.0",
+    "@colyseus/monitor": "^0.11.17",
     "@colyseus/social": "^0.11.0",
     "colyseus": "^0.11.6",
     "colyseus.js": "^0.11.0",
