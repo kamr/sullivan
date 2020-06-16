@@ -57,7 +57,7 @@ if (process.env.NODE_ENV !== "production") {
 
 } else {
     // on production, use ./public as static root
-    STATIC_DIR = path.resolve(__dirname, "public");
+    STATIC_DIR = path.resolve("public");
     console.log('prod', STATIC_DIR)
 }
 
