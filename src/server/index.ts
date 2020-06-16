@@ -46,6 +46,7 @@ gameServer.define("1day", DrawingRoom, { expiration: 60 * 60 * 24 });
 gameServer.define("1week", DrawingRoom, { expiration: 60 * 60 * 24 * 7 });
 
 if (process.env.NODE_ENV !== "production") {
+    console.log('dev', __dirname)
     const webpackCompiler = webpack(webpackConfig({}));
     app.use(webpackDevMiddleware(webpackCompiler, {}));
     app.use(webpackHotMiddleware(webpackCompiler));
@@ -56,6 +57,7 @@ if (process.env.NODE_ENV !== "production") {
 } else {
     // on production, use ./public as static root
     STATIC_DIR = path.resolve(__dirname, "public");
+    console.log('prod', STATIC_DIR)
 }
 
 app.use("/", express.static(STATIC_DIR));
