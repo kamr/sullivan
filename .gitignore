@@ -2,3 +2,6 @@ node_modules
 package-lock.json
 npm-debug.log
 *.js
+
+# but not these files
+!webpack.config.js
