@@ -57,14 +57,14 @@ if (process.env.NODE_ENV !== "production") {
 
 } else {
     // on production, use ./public as static root
-    STATIC_DIR = path.resolve(__dirname, "..", "/public");
+    STATIC_DIR = path.resolve(__dirname, "/public");
     console.log('prod', STATIC_DIR)
 }
 
 app.use("/", express.static(STATIC_DIR));
 
 // @colyseus/social routes
-app.use("/", socialRoutes);
+// app.use("/", socialRoutes);
 
 app.get('/drawings', async (req, res) => {
   res.json(await Drawing.find({}, {
