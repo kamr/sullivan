@@ -6,6 +6,10 @@ import { hideGameplay, showGameplay } from "./pages/gameplay";
 
 const gameModes = ['2minutes', '5minutes', '1hour', '1day', '1week'];
 
+
+// document.getElementById("landing-app").requestFullscreen();
+
+
 /**
  * Navigation
  */

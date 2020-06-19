@@ -21,7 +21,9 @@ module.exports = function (options) {
       new webpack.HotModuleReplacementPlugin(),
 
       new HtmlWebpackPlugin({
-        template: path.resolve("src", "client", "index.html")
+        template: path.resolve("src", "client", "index.html"),
+        filename: 'index.html',
+        inject: 'body',
       }),
 
       // extract styles from bundle into a separate file
