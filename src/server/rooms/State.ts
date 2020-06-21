@@ -23,6 +23,7 @@ export class State extends Schema {
 
   createPlayer (sessionId: string) {
     this.players[sessionId] = new Player();
+    console.log(this.players)
     return this.players[sessionId];
   }
 

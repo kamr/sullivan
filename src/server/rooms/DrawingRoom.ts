@@ -2,7 +2,7 @@ import { Room, Client } from "colyseus";
 import { State, Path, BRUSH, DEFAULT_BRUSH } from "./State";
 import { Player } from "./Player";
 import { generateName } from "../utils/name_generator";
-import Drawing from "../db/Drawing";
+// import Drawing from "../db/Drawing";
 
 export class DrawingRoom extends Room<State> {
   autoDispose = false;
@@ -29,7 +29,7 @@ export class DrawingRoom extends Room<State> {
     // change angle
     if (command === "chat") {
       const chatMsg = `${player.name}: ${data}`;
-      this.broadcast(['chat', chatMsg]);
+      this.broadcast(['chat', client.sessionId, chatMsg]);
       this.lastChatMessages.push(chatMsg);
 
       // prevent history from being 50+ messages long.
@@ -81,13 +81,13 @@ export class DrawingRoom extends Room<State> {
   async onDispose() {
     console.log("Disposing room, let's persist its result!");
 
-    if (this.state.paths.length > 0) {
-      await Drawing.create({
-        paths: this.state.paths,
-        mode: this.roomName,
-        votes: 0,
-      });
-    }
+    // if (this.state.paths.length > 0) {
+    //   await Drawing.create({
+    //     paths: this.state.paths,
+    //     mode: this.roomName,
+    //     votes: 0,
+    //   });
+    // }
   }
 
 }

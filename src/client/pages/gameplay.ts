@@ -5,12 +5,14 @@ import brushFunctions from "../brushes";
 
 let room: Room<State>;
 
-const gameplay = document.getElementById('gameplay');
-const countdownEl = gameplay.querySelector('.countdown');
+const countdownEl = document.getElementById('countdown');
+const playerListEl = document.getElementById('player-list');
 
-const peopleEl = gameplay.querySelector('.people');
-const chatEl = gameplay.querySelector('.chat');
-const chatMessagesEl = chatEl.querySelector('ul');
+const chatSidebar = document.getElementById('mySidenav');
+
+const chatEl = document.getElementById('chat-entry');
+// const chatMessagesEl = gameplay.querySelector('.chat-history').querySelector('ul');
+const chatMessagesEl = document.getElementById('chat-list');
 
 chatEl.querySelector('form').addEventListener('submit', (e) => {
   e.preventDefault();
@@ -19,52 +21,63 @@ chatEl.querySelector('form').addEventListener('submit', (e) => {
   input.value = "";
 });
 
-gameplay.querySelector('.info a').addEventListener("click", (e) => {
-  e.preventDefault();
+// gameplay.querySelector('.lobby-title a').addEventListener("click", (e) => {
+//   e.preventDefault();
 
-  if (room) {
-    room.leave();
-  }
+//   if (room) {
+//     room.leave();
+//   }
 
-  location.hash = "#";
-});
+//   location.hash = "#";
+// });
 
-const canvas = gameplay.querySelector('.drawing') as HTMLCanvasElement;
-const ctx = canvas.getContext('2d');
+/* Set the width of the side navigation to 250px */
+let openChat = document.getElementById("open-chat");
+openChat.addEventListener("click", (e:Event) => {
+  document.getElementById("mySidenav").style.right = "0px";
+})
 
-const prevCanvas = gameplay.querySelector('.drawing-preview') as HTMLCanvasElement;
-const prevCtx = prevCanvas.getContext('2d');
+/* Set the width of the side navigation to 0 */
+let closeChat = document.getElementById("close-chat");
+closeChat.addEventListener("click", (e:Event) => {
+  document.getElementById("mySidenav").style.right = "-300px";
+})
+
+// const canvas = gameplay.querySelector('.drawing') as HTMLCanvasElement;
+// const ctx = canvas.getContext('2d');
+
+// const prevCanvas = gameplay.querySelector('.drawing-preview') as HTMLCanvasElement;
+// const prevCtx = prevCanvas.getContext('2d');
 
 export async function showGameplay(roomName: string) {
-  gameplay.classList.remove('hidden');
+  chatSidebar.classList.remove('hidden');
 
   // clear previous chat messages.
   chatMessagesEl.innerHTML = "";
-  peopleEl.innerHTML = "";
-  gameplay.querySelector('.mode').innerHTML = `${roomName} session`;
+  playerListEl.innerHTML = "";
+  document.getElementById('lobby-mode').innerHTML = `Lobby ${roomName}`;
 
-  clearCanvas(ctx);
-  clearCanvas(prevCtx);
+  // clearCanvas(ctx);
+  // clearCanvas(prevCtx);
 
-  gameplay.classList.add('loading');
+  chatSidebar.classList.add('loading');
   room = await client.joinOrCreate(roomName, {
     nickname: (document.getElementById('username') as HTMLInputElement).value
   });
-  room.onStateChange.once(() => gameplay.classList.remove('loading'));
+  room.onStateChange.once(() => chatSidebar.classList.remove('loading'));
 
   room.state.players.onAdd = (player, sessionId) => {
     const playerEl = document.createElement("li");
 
     if (sessionId === room.sessionId) { playerEl.classList.add('you'); }
-
     playerEl.innerText = player.name;
     playerEl.id = `p${sessionId}`;
-    peopleEl.appendChild(playerEl);
+    playerListEl.appendChild(playerEl);
   }
 
   room.state.players.onRemove = (player, sessionId) => {
-    const playerEl = peopleEl.querySelector(`#p${sessionId}`);
-    peopleEl.removeChild(playerEl);
+    const playerEl = playerListEl.querySelector(`#p${sessionId}`);
+    playerListEl.removeChild(playerEl);
   }
 
   room.state.onChange = (changes) => {
@@ -77,15 +90,26 @@ export async function showGameplay(roomName: string) {
     });
   };
 
-  room.state.paths.onAdd = function(path, index) {
-    brushFunctions[path.brush](ctx, path.color, path.points, false);
-  }
+  // room.state.paths.onAdd = function(path, index) {
+  //   brushFunctions[path.brush](ctx, path.color, path.points, false);
+  // }
 
   room.onMessage((message) => {
-    const [cmd, data] = message;
+    // console.log(message)
+    const [cmd, ...data] = message;
     if (cmd === "chat") {
-      const message = document.createElement("li");
-      message.innerText = data;
+      // console.log("from", data[0], "to", room.sessionId)
+      const message = document.createElement("p");
+      if (data[0] == room.sessionId) {
+        message.setAttribute('class', 'from-me');
+      }
+      else {
+        message.setAttribute('class', 'from-them');
+      }
+      // room.sessionId
+      message.innerText = data[1];
+      // console.log("from", data[0], "msg", message.innerText);
+      // console.log(message)
       chatMessagesEl.appendChild(message);
       chatEl.scrollTop = chatEl.scrollHeight;
     }
@@ -93,7 +117,7 @@ export async function showGameplay(roomName: string) {
 }
 
 export function hideGameplay() {
-  gameplay.classList.add('hidden');
+  chatSidebar.classList.add('hidden');
 }
 
 export function clearCanvas(ctx) {
@@ -104,79 +128,79 @@ function checkRoom() {
   return (room && room.state.countdown > 0);
 }
 
-ctx.lineWidth = 1;
-ctx.lineJoin = ctx.lineCap = 'round';
+// ctx.lineWidth = 1;
+// ctx.lineJoin = ctx.lineCap = 'round';
 
-var isDrawing, color = 0x000000, brush = DEFAULT_BRUSH, points = [ ];
+// var isDrawing, color = 0x000000, brush = DEFAULT_BRUSH, points = [ ];
 
-prevCanvas.addEventListener("mousedown", (e) => startPath(e.offsetX, e.offsetY));
-prevCanvas.addEventListener("mousemove", (e) => movePath(e.offsetX, e.offsetY));
-prevCanvas.addEventListener("mouseup", (e) => endPath());
+// prevCanvas.addEventListener("mousedown", (e) => startPath(e.offsetX, e.offsetY));
+// prevCanvas.addEventListener("mousemove", (e) => movePath(e.offsetX, e.offsetY));
+// prevCanvas.addEventListener("mouseup", (e) => endPath());
 
-prevCanvas.addEventListener("touchstart", (e) => {
-  var rect = (e.target as HTMLCanvasElement).getBoundingClientRect();
-  var bodyRect = document.body.getBoundingClientRect();
-  var x = e.touches[0].pageX - (rect.left - bodyRect.left);
-  var y = e.touches[0].pageY - (rect.top - bodyRect.top);
-  return startPath(x, y);
-});
-prevCanvas.addEventListener("touchmove", (e) => {
-  var rect = (e.target as HTMLCanvasElement).getBoundingClientRect();
-  var bodyRect = document.body.getBoundingClientRect();
-  var x = e.touches[0].pageX - (rect.left - bodyRect.left);
-  var y = e.touches[0].pageY - (rect.top - bodyRect.top);
-  movePath(x, y)
-});
-prevCanvas.addEventListener("touchend", (e) => endPath());
+// prevCanvas.addEventListener("touchstart", (e) => {
+//   var rect = (e.target as HTMLCanvasElement).getBoundingClientRect();
+//   var bodyRect = document.body.getBoundingClientRect();
+//   var x = e.touches[0].pageX - (rect.left - bodyRect.left);
+//   var y = e.touches[0].pageY - (rect.top - bodyRect.top);
+//   return startPath(x, y);
+// });
+// prevCanvas.addEventListener("touchmove", (e) => {
+//   var rect = (e.target as HTMLCanvasElement).getBoundingClientRect();
+//   var bodyRect = document.body.getBoundingClientRect();
+//   var x = e.touches[0].pageX - (rect.left - bodyRect.left);
+//   var y = e.touches[0].pageY - (rect.top - bodyRect.top);
+//   movePath(x, y)
+// });
+// prevCanvas.addEventListener("touchend", (e) => endPath());
 
 /**
  * Tools: colorpicker
  */
-gameplay.querySelector('.colorpicker').addEventListener("change", (e) => {
-  color = parseInt("0x" + (e.target as HTMLInputElement).value);
-});
+// gameplay.querySelector('.colorpicker').addEventListener("change", (e) => {
+//   color = parseInt("0x" + (e.target as HTMLInputElement).value);
+// });
 
 /**
  * Tools: brush
  */
-Array.from(document.querySelectorAll('input[type=radio][name="brush"]')).forEach(radioButton => {
-  radioButton.addEventListener('change', (e) => {
-    brush = (e.target as HTMLInputElement).value as BRUSH;
-  });
-});
+// Array.from(document.querySelectorAll('input[type=radio][name="brush"]')).forEach(radioButton => {
+//   radioButton.addEventListener('change', (e) => {
+//     brush = (e.target as HTMLInputElement).value as BRUSH;
+//   });
+// });
 
-function startPath(x, y) {
-  if (!checkRoom()) { return; }
+// function startPath(x, y) {
+//   if (!checkRoom()) { return; }
 
-  const point = [x, y];
-  room.send(['s', point, color, brush]);
+//   const point = [x, y];
+//   room.send(['s', point, color, brush]);
 
-  clearCanvas(prevCtx);
+//   clearCanvas(prevCtx);
 
-  isDrawing = true;
-  points = [];
-  points.push(...point);
-}
+//   isDrawing = true;
+//   points = [];
+//   points.push(...point);
+// }
 
-function movePath(x, y) {
-  if (!checkRoom()) { return; }
-  if (!isDrawing) { return; }
+// function movePath(x, y) {
+//   if (!checkRoom()) { return; }
+//   if (!isDrawing) { return; }
 
-  const point = [x, y];
-  room.send(['p', point]);
+//   const point = [x, y];
+//   room.send(['p', point]);
 
-  points.push(...point);
-  brushFunctions[brush](prevCtx, color, points, true);
-}
+//   points.push(...point);
+//   brushFunctions[brush](prevCtx, color, points, true);
+// }
 
-function endPath() {
-  room.send(['e']);
+// function endPath() {
+//   room.send(['e']);
 
-  isDrawing = false;
-  points.length = 0;
+//   isDrawing = false;
+//   points.length = 0;
 
-  clearCanvas(prevCtx);
-}
+//   clearCanvas(prevCtx);
+// }
 
 
 function millisecondsToStr(_seconds) {

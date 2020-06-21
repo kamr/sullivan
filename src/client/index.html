@@ -19,27 +19,24 @@
     <link rel="manifest" href="/site.webmanifest"> -->
 </head>
 <body>
-    <div class="landing-app">
-        <div class="landing-box">
-          <div class="landing-title-box">
-            <div class="landing-title">SOKDO</div>
-          </div>  
-          <div class="landing-form-box">
-            <form id="landing-form">
-                <div class="landing-form-component">
-                    <input type="text" placeholder="enter name" class="landing-name" id="player-name" maxlength="16" autofocus autocomplete="off" />
-                </div>
-                <div class="landing-form-component">
-                  <button class="landing-button">CREATE</button>
-                  <button class="landing-button">JOIN</button>
-                </div>
-            </form>
-          </div>
-        </div>
-    </div>
     <div id="app">
-
       <div id="home">
+        <div class="landing-title-box">
+          <div class="landing-title">SOKDO</div>
+        </div>  
+        <div class="landing-form-box">
+          <form id="landing-form">
+              <div class="landing-form-component">
+                  <input type="text" placeholder="enter name" class="landing-name" id="username" maxlength="16" autofocus autocomplete="off" />
+              </div>
+              <div class="landing-form-component">
+                <button class="landing-button" id="create">CREATE</button>
+                <button class="landing-button" id="join">JOIN</button>
+              </div>
+          </form>
+        </div>
+      </div>
+      <!-- <div id="home">
         <h2>Collaborative Drawing Prototype</h2>
         <input id="username" type="text" placeholder="Nickname" />
 
@@ -54,36 +51,45 @@
 
         <h3>Previous sessions</h3>
         <ul class="previous-sessions"></ul>
+      </div> -->
+      <div class="lobby-title">
+        <div id="lobby-mode"></div>
+        <div id="countdown"></div>
+        <ul id="player-list"></ul>
+        <!-- <a href="#">&laquo;Back</a> -->
       </div>
+
+      <div id="mySidenav" class="chat-sidebar">
+        <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
+        <input type="button" value="X" id="close-chat"></input>
+
+        <div class="chat-history">
+          <ul id="chat-list"></ul>
+        </div>
+        <div id="chat-entry">
+          <form onsubmit="">
+            <input id="chat-input" type="text" placeholder="Chat" maxlength="120" />
+            <input type="submit" value=">" />
+          </form>
+        </div>
+      </div>
+
+      <!-- <span onclick="openNav()">CHAT</span> -->
+      <input type="button" value="[]" id="open-chat"></input>
+
 
       <div id="gameplay" class="hidden">
 
-        <section class="sidebar">
-          <div class="info">
-            <div class="mode"></div>
-            <div class="countdown"></div>
-            <a href="#">&laquo;Back</a>
-          </div>
-
-          <ul class="people"></ul>
-          <div class="chat">
-            <ul></ul>
-            <form onsubmit="">
-              <input type="text" placeholder="Chat" maxlength="120" />
-              <input type="submit" value="send" />
-            </form>
-          </div>
-        </section>
-
+        <!-- <section class="sidebar">
+          
+        </section> -->
+<!-- 
         <section class="drawing-area">
           <div class="spinner"><div></div><div></div><div></div><div></div></div>
 
           <div class="tools">
             <input type="radio" id="brush_s" name="brush" value="s" checked="checked" />
             <label for="brush_s">Sketch</label>
-
-            <!-- <input type="radio" id="brush_r" name="brush" value="r" />
-            <label for="brush_r">Rounded</label> -->
 
             <input type="radio" id="brush_m" name="brush" value="m" />
             <label for="brush_m">Marker</label>
@@ -96,14 +102,13 @@
 
           <canvas class="drawing" width="800" height="600"></canvas>
           <canvas class="drawing-preview" width="800" height="600"></canvas>
-        </section>
+        </section> -->
 
       </div>
 
-      <div id="drawing" class="hidden">
+      <!-- <div id="drawing" class="hidden">
         <canvas width="800" height="600"></canvas>
-      </div>
-
+      </div> -->
     </div>
 </body>
 </html>

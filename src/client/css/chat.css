@@ -1,0 +1,109 @@
+/* The side navigation menu */
+.chat-sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 300px; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  right: -300px;
+  background-color: #FFFFFF; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 20px;
+	font-weight: normal;
+  max-width: 450px;
+	/* margin: 50px auto; */
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+/* The navigation menu links */
+.chat-sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.chat-sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.chat-sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+p {
+  max-width: 255px;
+  word-wrap: break-word;
+  margin-bottom: 12px;
+  line-height: 24px;
+  position:relative;
+	padding:10px 20px;
+  border-radius:25px;
+}
+
+p:before, p:after {
+  content:"";
+  position:absolute;
+  bottom:-2px;
+  height:20px;
+}
+
+.from-me {
+	color:white; 
+	background:#0B93F6;
+	align-self: flex-end;
+}
+
+.from-me:before {
+  right:-7px;
+  border-right:20px solid #0B93F6;
+  border-bottom-left-radius: 16px 14px;
+  transform:translate(0, -2px);
+}
+
+.from-me:after {
+  right:-56px;
+  width:26px;
+  background:white;
+  border-bottom-left-radius: 10px;
+  transform:translate(-30px, -2px);
+}
+
+.from-them {
+	background:#E5E5EA;
+	color:black;
+}
+
+.from-them:before {
+  left:-7px;
+  border-left:20px solid #E5E5EA;
+  border-bottom-right-radius: 16px 14px;
+  transform:translate(0, -2px);
+}
+
+.from-them:after {
+  left:4px;
+  width:26px;
+  background:white;
+  border-bottom-right-radius: 10px;
+  transform:translate(-30px, -2px);
+}
+
+
+#chat-input {
+  /* background-color: red; */
+}
