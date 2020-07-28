@@ -26,11 +26,14 @@ function playerName(): string {
 function create(): void {
   // client.create("kamran").then(room => {
       // console.log(room, room.sessionId, "joined", room.name);
-      showGameplay("kamran");
+      showGameplay("chat");
       hideHome();
   // }).catch(e => {
   //     console.log("Error", e);
   // });
+}
+
+function join(): void {
 }
 
 // const landingForm: HTMLInputElement = document.getElementById('landing-form') as HTMLInputElement;
@@ -43,6 +46,12 @@ function create(): void {
 document.getElementById("create").addEventListener("click", function(event){
   event.preventDefault();
   create();
+});
+
+client.getAvailableRooms("chat").then(rooms => {
+  console.log(rooms)
+}).catch(e => {
+  console.error(e);
 });
 // document.getElementById("join").addEventListener("click", function(event){
 //   event.preventDefault();

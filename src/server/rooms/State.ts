@@ -20,10 +20,11 @@ export class State extends Schema {
   @type("number") countdown: number;
   @type({ map: Player }) players = new MapSchema<Player>();
   @type([Path]) paths = new ArraySchema<Path>();
+  @type("string") pin;
 
   createPlayer (sessionId: string) {
     this.players[sessionId] = new Player();
-    console.log(this.players)
+    // console.log(this.players)
     return this.players[sessionId];
   }
 

@@ -49,22 +49,39 @@ closeChat.addEventListener("click", (e:Event) => {
 // const prevCanvas = gameplay.querySelector('.drawing-preview') as HTMLCanvasElement;
 // const prevCtx = prevCanvas.getContext('2d');
 
+// join() {
+//   client.getAvailableRooms("battle").then(rooms => {
+//     for (var i=0; i<rooms.length; i++) {
+//       if (room.metadata && room.metadata.friendlyFire) {
+//         //
+//         // join the room with `friendlyFire` by id:
+//         //
+//         var room = client.join(room.roomId);
+//         return;
+//       }
+//     }
+//   });
+// }
+
 export async function showGameplay(roomName: string) {
+  console.log('SHOWGAMEPLAY')
   chatSidebar.classList.remove('hidden');
 
   // clear previous chat messages.
   chatMessagesEl.innerHTML = "";
   playerListEl.innerHTML = "";
-  document.getElementById('lobby-mode').innerHTML = `Lobby ${roomName}`;
 
   // clearCanvas(ctx);
   // clearCanvas(prevCtx);
 
   chatSidebar.classList.add('loading');
-  room = await client.joinOrCreate(roomName, {
+  console.log("CREATE ROOM")
+  room = await client.create(roomName, {
     nickname: (document.getElementById('username') as HTMLInputElement).value
   });
-  room.onStateChange.once(() => chatSidebar.classList.remove('loading'));
+  console.log(room)
+  // room.onStateChange.once(() => chatSidebar.classList.remove('loading'));
+  document.getElementById('lobby-mode').innerHTML = `Room ${roomName} ${room.state.pin}`;
 
   room.state.players.onAdd = (player, sessionId) => {
     const playerEl = document.createElement("li");
@@ -86,6 +103,10 @@ export async function showGameplay(roomName: string) {
         countdownEl.innerHTML = (change.value > 0)
           ? millisecondsToStr(change.value)
           : "Time is up!";
+      }
+      // can we avoid checking this every time?
+      if (change.field === "pin") {
+        document.getElementById('lobby-mode').innerHTML = `Room ${roomName} ${room.state.pin}`;
       }
     });
   };

@@ -1,18 +1,54 @@
 import { Room, Client } from "colyseus";
-import { State, Path, BRUSH, DEFAULT_BRUSH } from "./State";
+import { State,  Path, BRUSH, DEFAULT_BRUSH } from "./State";
 import { Player } from "./Player";
-import { generateName } from "../utils/name_generator";
+import { generateName, generatePin } from "../utils/util";
 // import Drawing from "../db/Drawing";
 
 export class DrawingRoom extends Room<State> {
-  autoDispose = false;
+  // autoDispose = false;
   lastChatMessages: string[] = [];
 
   onCreate(options) {
     this.setState(new State());
-
     this.state.countdown = options.expiration;
     this.setSimulationInterval(() => this.countdown(), 1000);
+
+    console.log(`Room ID ${this.roomId}`);
+    this.createRoomPin(options.nickname).then((pin) => {
+      console.log(`Room Pin ${pin}`);
+      this.setMetadata({ roomPin: pin});
+      this.state.pin = pin;
+      // Is it bad to store in metadata AND state?
+    });
+  }
+
+  createRoomPin = async (nickname: string): Promise<string> => {
+    var pin: string = "";
+    var pinAlreadyInUse: boolean = true;
+    var nicknameForRoom: string = nickname;
+    while (pinAlreadyInUse) {
+      var pin: string = generatePin(nicknameForRoom);
+      // console.log(this.presence.smembers(pin))
+
+      var pinMembers = await this.presence.smembers(pin);
+      console.log(pinMembers)
+      pinAlreadyInUse = pinMembers.length > 0;
+
+      if (pinAlreadyInUse) {
+        nicknameForRoom += '1';
+        console.log(`${pin} already set trying ${nicknameForRoom} ${generatePin(nicknameForRoom)}`)
+      }
+      else {
+        // console.log("get", pin, this.presence.get(pin));
+        // this.presence.exists(pin).then((x) => {console.log("exists", pin, x) });
+        // this.presence.smembers(pin).then((x) => {console.log("smembers", pin, x) });
+        console.log("Pin doesn't exist yet");
+        // pinAlreadyInUse = false;
+        this.presence.sadd(pin, nicknameForRoom)
+        // this.presence.smembers(pin).then((x) => {console.log("smembers", pin, x) });
+      }
+    }
+    return pin;
   }
 
   onJoin(client: Client, options: any) {
@@ -79,7 +115,7 @@ export class DrawingRoom extends Room<State> {
   }
 
   async onDispose() {
-    console.log("Disposing room, let's persist its result!");
+    console.log(`Disposing of room ${this.roomId}`);
 
     // if (this.state.paths.length > 0) {
     //   await Drawing.create({

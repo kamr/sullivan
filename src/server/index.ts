@@ -39,14 +39,17 @@ export let STATIC_DIR: string;
 // });
 
 const app = express();
-const gameServer = new Server({ server: http.createServer(app) });
+const gameServer = new Server({
+    server: http.createServer(app),
+    // presence: new RedisPresence()
+});
 
 // gameServer.define("2minutes", DrawingRoom, { expiration: 60 * 2 });
 // gameServer.define("5minutes",   DrawingRoom, { expiration: 60 * 5 });
 // gameServer.define("1hour", DrawingRoom, { expiration: 60 * 60 });
 // gameServer.define("1day", DrawingRoom, { expiration: 60 * 60 * 24 });
 // gameServer.define("1week", DrawingRoom, { expiration: 60 * 60 * 24 * 7 });
-gameServer.define("kamran", DrawingRoom, { expiration: 60 * 60 * 24 * 7 });
+gameServer.define("chat", DrawingRoom, { expiration: 60 * 60 * 24 * 7 });
 
 if (process.env.NODE_ENV !== "production") {
     console.log('dev', __dirname)

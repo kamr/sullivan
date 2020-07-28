@@ -30,6 +30,7 @@ export function generateColor(str: string): string {
 }
 
 function hashCode(str: string): number { // java String#hashCode
+  str += "salty"
   var hash = 0;
   for (var i = 0; i < str.length; i++) {
      hash = str.charCodeAt(i) + ((hash << 5) - hash);
@@ -43,4 +44,19 @@ function intToRGB(i: number): string {
       .toUpperCase();
 
   return "00000".substring(0, 6 - c.length) + c;
+}
+
+// function hashStringToString(str: string): number {
+//   var hash = 0;
+//   if (str.length == 0)
+//     return hash;
+//   for (let i = 0; i < str.length; i++) {
+//     var charCode = str.charCodeAt(i);
+//     hash = ((hash << 7) - hash) + charCode;
+//     hash = hash & hash;
+//   }
+// }
+export function generatePin(str: string): string {
+  // ((x%n)+n)%n to avoid negative
+  return (((hashCode(str) % 10000) + 10000) % 10000).toString().padStart(4, '0');
 }
